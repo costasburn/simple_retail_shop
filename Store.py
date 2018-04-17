@@ -50,3 +50,4 @@ Report.new_report.print_stock(stock=new_store.get_stock())
 Report.new_report.sales_by_item(filter_item=Item.Pen, journal=Journal.new_journal)
 Report.new_report.profit_by_item(filter_item=Item.Pen, journal=Journal.new_journal)
 Report.new_report.print_invoices(Journal.new_journal.get_invoices())
+
