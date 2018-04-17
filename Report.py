@@ -1,4 +1,5 @@
 import datetime
+
 import Invoice
 
 
@@ -25,11 +26,11 @@ class Report:
                 print()
                 print("Record ID:", record.id)
                 print(
-                        "\nTime:            {}"
-                        "\nItem:            {}"
-                        "\nQuantity added:  {}"
-                        "\nPurchase price:  {}".format(record.time, record.item.name,
-                                                       record.quantity, record.purchase_price))
+                    "\nTime:            {}"
+                    "\nItem:            {}"
+                    "\nQuantity added:  {}"
+                    "\nPurchase price:  {}".format(record.time, record.item.name,
+                                                   record.quantity, record.purchase_price))
         print()
 
     def print_record(self, records):
@@ -59,7 +60,6 @@ class Report:
                         result += record.quantity
         return print(result)
 
-
     def profit_by_item(self, filter_item, journal, date1=None, date2=None):
 
         lower_limit = date1 if not date1 is None else datetime.datetime.min
@@ -73,10 +73,6 @@ class Report:
                     if record.item.name == filter_item.name and lower_limit <= record.time <= upper_limit:
                         result += record.quantity * margin
         return result
-
-
-
-
 
 
 new_report = Report()

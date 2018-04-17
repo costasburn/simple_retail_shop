@@ -2,7 +2,6 @@ import datetime
 
 
 class Invoice:
-
     last_invoice_id = 0
     last_record_id = 0
 
@@ -22,7 +21,7 @@ class Invoice:
                 self._records.remove(record)
 
     def get_records(self, date1=None, date2=None):
-        self._records.sort(key=lambda invoice : invoice.time)
+        self._records.sort(key=lambda invoice: invoice.time)
 
         lower_limit = date1 if not date1 is None else datetime.datetime.min
         upper_limit = date2 if not date2 is None else datetime.datetime.max
