@@ -1,5 +1,4 @@
 import datetime
-import invoice_module
 
 
 class Report:
@@ -52,24 +51,15 @@ class Report:
         upper_limit = date2 if not date2 is None else datetime.datetime.max
         result = 0
 
-        for invoice in journal.get_invoices():
-            if isinstance(invoice, invoice_module.InvoiceOut):
-                for record in invoice.get_records():
-                    if record.item.name == filter_item.name and lower_limit <= record.time <= upper_limit:
-                        result += record.quantity
-        return print(result)
+        for invoice in journal.get_sell_invoices():
+            for record in invoice.get_records():
+                if record.item.name == filter_item.name and lower_limit <= record.time <= upper_limit:
+                    result += record.quantity
+        return result
 
     def profit_by_item(self, filter_item, journal, date1=None, date2=None):
-
-        lower_limit = date1 if not date1 is None else datetime.datetime.min
-        upper_limit = date2 if not date2 is None else datetime.datetime.max
         margin = filter_item.sell_price - filter_item.purchase_price
-        result = 0
-
-        for invoice in journal.get_invoices():
-            if isinstance(invoice, invoice_module.InvoiceOut):
-                for record in invoice.get_records():
-                    if record.item.name == filter_item.name and lower_limit <= record.time <= upper_limit:
-                        result += record.quantity * margin
+        sales = self.sales_by_item(filter_item=filter_item, journal=journal, date1=date1, date2=date2)
+        result = sales * margin
         return result
 

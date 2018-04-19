@@ -1,4 +1,5 @@
 import datetime
+import record
 
 
 class Invoice:
@@ -11,13 +12,25 @@ class Invoice:
         self.id = Invoice._last_invoice_id
         self.time = datetime.datetime.now()
 
-    def add_record(self, record):
-        self._records.append(record)
+    def create_purchase_record(self, store, item, quantity, journal):
+        store.add_item(item=item, quantity=quantity)
+        new_record = record.Record(invoice=self, item=item, quantity=quantity)
+        self._records.append(new_record)
+        if self not in journal.get_purchase_invoices():
+            journal.add_invoice_purchase(invoice=self)
+        return self._records
+
+    def create_sell_record(self, store, item, quantity, journal):
+        store.remove_item(item, quantity)
+        new_record = record.Record(invoice=self, item=item, quantity=quantity)
+        self._records.append(new_record)
+        if self not in journal.get_sell_invoices():
+            journal.add_invoice_sell(invoice=self)
         return self._records
 
     def erase_record(self, record):
         for iter_record in self._records:
-            if record.item.name == iter_record.item.name:
+            if record.id == iter_record.id:
                 self._records.remove(record)
 
     def get_records(self, date1=None, date2=None):
