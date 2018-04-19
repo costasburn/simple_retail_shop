@@ -2,13 +2,13 @@ import datetime
 
 
 class Invoice:
-    last_invoice_id = 0
-    last_record_id = 0
+    _last_invoice_id = 0
+    _last_record_id = 0
 
     def __init__(self):
-        Invoice.last_invoice_id += 1
+        Invoice._last_invoice_id += 1
         self._records = []
-        self.id = Invoice.last_invoice_id
+        self.id = Invoice._last_invoice_id
         self.time = datetime.datetime.now()
 
     def add_record(self, record):

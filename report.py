@@ -1,6 +1,5 @@
 import datetime
-
-import Invoice
+import invoice_module
 
 
 class Report:
@@ -54,7 +53,7 @@ class Report:
         result = 0
 
         for invoice in journal.get_invoices():
-            if isinstance(invoice, Invoice.InvoiceOut):
+            if isinstance(invoice, invoice_module.InvoiceOut):
                 for record in invoice.get_records():
                     if record.item.name == filter_item.name and lower_limit <= record.time <= upper_limit:
                         result += record.quantity
@@ -68,11 +67,9 @@ class Report:
         result = 0
 
         for invoice in journal.get_invoices():
-            if isinstance(invoice, Invoice.InvoiceOut):
+            if isinstance(invoice, invoice_module.InvoiceOut):
                 for record in invoice.get_records():
                     if record.item.name == filter_item.name and lower_limit <= record.time <= upper_limit:
                         result += record.quantity * margin
         return result
 
-
-new_report = Report()

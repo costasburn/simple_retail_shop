@@ -12,7 +12,7 @@ class Journal:
 
     def remove_invoice(self, invoice):
         for iter_invoice in self._invoices:
-            if iter_invoice.item.name == invoice.item.name:
+            if iter_invoice.id == invoice.id:
                 self._invoices.remove(invoice)
 
     def get_invoices(self, date1=None, date2=None):
@@ -23,5 +23,3 @@ class Journal:
 
         return (invoice for invoice in self._invoices if lower_limit <= invoice.time <= upper_limit)
 
-
-new_journal = Journal(name="Accountant's Log")
